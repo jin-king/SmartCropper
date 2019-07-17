@@ -2,8 +2,9 @@
 
 ## English | [中文](README.md)
 
-A library for cropping image in a smart way that can identify the border and correct the cropped image. Applicable to ID cards, business cards, documents and other photos of the crop. If you like, welcome start, fork or follow me.
+A library for cropping image in a smart way that can identify the border and correct the cropped image. Applicable to ID cards, business cards, documents and other photos of the crop. If you like, welcome star, fork or follow me.
 
+You can also follow my other library [SmartCamera](https://github.com/pqpo/SmartCamera): SmartCamera is an Android camera extension library，provides a scanning module that can recognizes whether the object's border inside the camera matches the area in real time.
 
 ## Features
 
@@ -12,7 +13,7 @@ A library for cropping image in a smart way that can identify the border and cor
 - Use the perspective transform to crop and correct the selection to restore the front image.
 - Support rich UI settings, such as auxiliary lines, mask, anchor, magnifying glass and so on.
 
-## Sample（[link](art/SmartCropperSampleV5.apk)）
+## Sample（[link](art/SmartCropperSampleV6.apk)）
 
 ### 1. Select a image, use the perspective transform to crop and correct the selection:
 
@@ -30,6 +31,12 @@ A library for cropping image in a smart way that can identify the border and cor
 
 ## Import
 
+if version >= v1.2.4:
+
+aar download: https://github.com/pqpo/SmartCropper/releases
+
+else:
+
 Step 1. Add it in your root build.gradle at the end of repositories:
 ```
 	allprojects {
@@ -43,7 +50,7 @@ Step 1. Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.pqpo:SmartCropper:v1.1.3@aar'
+	        compile 'com.github.pqpo:SmartCropper:v2.1.3'
 	}
 ```
 
@@ -76,15 +83,32 @@ It will identify the border by native(c/c++), and show Image.
 ### 3. Crop the image：
 
 ```java  
-Bitmap crop = ivCrop.crop();  
-```  
+Bitmap crop = ivCrop.crop();
+```
+
+
+### Optimization of intelligent selection algorithm:
+
+Tensorflow HED Net instant of Canny:
+
+1. build.gradle ：
+```gradle
+aaptOptions {
+    noCompress "tflite"
+    noCompress "lite"
+}
+```
+2. Application.onCreate：
+```java
+SmartCropper.buildImageDetector(this);
+```
 
 ## Features
 
 - [x] Optimization point sorting algorithm
 - [x] CropImageView selection magnifying effect
 - [x] CropImageView xml settings
-- [ ] Optimization of intelligent selection algorithm
+- [x] Optimization of intelligent selection algorithm
 - [ ] Please submit ISSUEs
 
 ---

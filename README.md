@@ -2,7 +2,9 @@
 
 ## [English](README_EN.md) | 中文
 
-简单易用的智能图片裁剪库，适用于身份证，名片，文档等照片的裁剪。 如果觉得还不错，欢迎 start，fork。
+简单易用的智能图片裁剪库，适用于身份证，名片，文档等照片的裁剪。 如果觉得还不错，欢迎 star，fork。
+
+你也可以关注我的另一个库 [SmartCamera](https://github.com/pqpo/SmartCamera)： SmartCamera 是一个 Android 相机拓展库，能够实时采集并且识别相机内物体边框是否吻合指定区域。
 
 ## 支持特性
 
@@ -11,9 +13,7 @@
 - 使用透视变换裁剪并矫正选区，还原正面图片
 - 支持丰富的UI设置，如辅助线，蒙版，锚点，放大镜等
 
-## 例子（[传送门](art/SmartCropperSampleV5.apk)）
-
-![](art/download_qr.png)
+## 例子（[传送门](art/SmartCropperSampleV6.apk)）
 
 ### 1. 选择图片后智能选区，使用透视变换裁剪并矫正选区：
 
@@ -29,7 +29,24 @@
 ![](art/smartcropper_photo.gif)
 ![](art/smartcropper_album_1.gif)
 
+## 优化智能选区算法(V2.1.1+)
+使用机器学习算法代理 Canny 算法，提高识别率(基于 TensorFlow 的 HED 网络).
+感谢：https://github.com/fengjian0106/hed-tutorial-for-document-scanning
+
+1. build.gradle 添加如下代码，不压缩模型：
+```gradle
+aaptOptions {
+    noCompress "tflite"
+    noCompress "lite"
+}
+```
+2. 在合适的地方初始化(比如在 Application.onCreate)：
+```java
+SmartCropper.buildImageDetector(this);
+```
+
 ## 接入
+
 1.根目录下的 build.gradle 添加：
 ```gradle
 allprojects {
@@ -42,7 +59,7 @@ allprojects {
 2.添加依赖
 ```gradle
 dependencies {
-	  compile 'com.github.pqpo:SmartCropper:v1.1.3@aar'
+	  compile 'com.github.pqpo:SmartCropper:v2.1.3'
 }
 ```
 
@@ -101,7 +118,7 @@ Bitmap crop = ivCrop.crop();
 - [x] 优化点排序算法
 - [x] CropImageView 选区放大镜效果
 - [x] CropImageView xml属性配置
-- [ ] 优化智能选区算法
+- [x] 优化智能选区算法
 - [ ] 欢迎提 ISSUE
 
 ---
@@ -115,6 +132,10 @@ Bitmap crop = ivCrop.crop();
 - 微信公众号: pqpo_me(扫下方二维码) 
 
 <img src="art/qrcode_for_gh.jpg" width="200">
+
+- qq群: Github 开源交流群
+
+<img src="art/qq_qr.jpeg" width="200">
 
 License
 -------
